@@ -27,7 +27,9 @@ class Runner
       @x = @x - @speed
     end
   end
-  
+  def touch?(hunters)
+    hunters.any? {|h| Gosu::distance(@x, @y, h.x, h.y) < 10}
+  end
   def move_right
     if @x >=(@game_window.width - @icon.width)
       @x = @game_window.width - @icon.width
