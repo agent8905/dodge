@@ -7,8 +7,8 @@ class Bomb
     @y = rand(@game_window.height)
     @x = rand(@game_window.width)
   end
-  def touch?(h)
-    Gosu::distance(@x, @y, h.x, h.y) < 10
+  def touch?(hunter)
+    Gosu::distance(@x, @y, hunter.x, hunter.y) < 10
   end
   def draw
     @bomb.draw(@x,@y, 6)
@@ -18,6 +18,9 @@ class Bomb
   end
   
   def update
+  end
+  
+  def shoot
   end
   
 end

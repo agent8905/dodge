@@ -14,10 +14,12 @@ class MyGame < Gosu::Window
     @running = true
     @start_time = Time.now
     @boom = false
+    @wall = create_wall
   end
   
   def update
     if @running
+      
       
       
       if button_down? Gosu::Button::KbLeft
@@ -41,6 +43,7 @@ class MyGame < Gosu::Window
       end
     
       @hunters.each {|hunter| hunter.chase}
+      @wall.each {|hunter| hunter.cross_screen}
     end
     if Time.now < @start_time +3
     else
@@ -58,7 +61,7 @@ class MyGame < Gosu::Window
        end
      end
     end
-    if @runner.touch?(@hunters)  
+    if @runner.touch?(@hunters, @wall)  
       stop_game!
     end
   end
@@ -77,6 +80,13 @@ class MyGame < Gosu::Window
     @bombs.each {|b| b.draw}
     @runner.draw
     @hunters.each {|hunter| hunter.draw}
+    @wall.each {|hunter| hunter.draw}
+  end
+  
+  def create_wall
+    number_of_hunters = 25
+    distance_between_hunters = (self.height/number_of_hunters).to_i
+    (1..number_of_hunters).map {|count| Hunter.new(self, @runner, 0, distance_between_hunters * count)}
   end
   
 end

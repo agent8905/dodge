@@ -1,11 +1,11 @@
 class Hunter
   
-  def initialize(game_window, runner)
+  def initialize(game_window, runner,x=nil, y=nil)
     @game_window = game_window
     @icon = Gosu::Image.new(@game_window, "images/hunter.png", true)
-    @x = rand(@game_window.width) 
-    @y = rand(@game_window.height)
-    @maxspeed = 8
+    @x = x || rand(@game_window.width) 
+    @y = y || rand(@game_window.height)
+    @maxspeed = rand(6)+2
     @speed = 1
     @runner = runner
   end
@@ -37,6 +37,11 @@ class Hunter
     end
     
   end
+  
+  def cross_screen
+    @x = @x + @speed
+  end
+  
   
   def draw
     @icon.draw(@x,@y,20)
